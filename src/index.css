@@ -2,56 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --bg-base: #0d0f12;
-    --bg-surface: #141720;
-    --bg-elevated: #1a1e2a;
-    --bg-hover: #1f2436;
-    --accent: #22c55e;
-    --accent-dim: rgba(34, 197, 94, 0.15);
-    --accent-glow: rgba(34, 197, 94, 0.3);
-    --text-primary: #e8eaf0;
-    --text-secondary: #7a8099;
-    --text-muted: #4a5068;
-    --border-subtle: rgba(255, 255, 255, 0.06);
-    --border-accent: rgba(34, 197, 94, 0.25);
-    --msg-out: #1a3a2a;
-    --msg-in: #1a1e2a;
-    --shadow-glow: 0 0 20px rgba(34, 197, 94, 0.08);
+/* ═══════════════════════════════
+   TELEGRAM DARK THEME — COLOR TOKENS
+═══════════════════════════════ */
+:root {
+  /* Backgrounds */
+  --tg-bg: #17212b;
+  --tg-sidebar: #17212b;
+  --tg-surface: #1e2c3a;
+  --tg-elevated: #242f3d;
+  --tg-hover: #202b36;
+  --tg-active: #2b5278;
+  --tg-input-bg: #1c2733;
 
-    --background: 222 24% 8%;
-    --foreground: 226 20% 90%;
-    --card: 222 22% 10%;
-    --card-foreground: 226 20% 90%;
-    --popover: 222 22% 10%;
-    --popover-foreground: 226 20% 90%;
-    --primary: 142 70% 45%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 222 22% 14%;
-    --secondary-foreground: 226 20% 90%;
-    --muted: 222 22% 14%;
-    --muted-foreground: 226 15% 50%;
-    --accent: 142 70% 45%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 222 20% 14%;
-    --input: 222 20% 14%;
-    --ring: 142 70% 45%;
-    --radius: 0.75rem;
+  /* Chat background (pattern) */
+  --tg-chat-bg: #0e1621;
 
-    --sidebar-background: 222 24% 8%;
-    --sidebar-foreground: 226 20% 90%;
-    --sidebar-primary: 142 70% 45%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 22% 14%;
-    --sidebar-accent-foreground: 226 20% 90%;
-    --sidebar-border: 222 20% 14%;
-    --sidebar-ring: 142 70% 45%;
-  }
+  /* Accent */
+  --tg-accent: #2ca5e0;
+  --tg-accent-2: #1a7bbf;
+
+  /* Outgoing bubble */
+  --tg-bubble-out: #2b5278;
+  --tg-bubble-out-text: #ffffff;
+  --tg-bubble-out-meta: rgba(255, 255, 255, 0.55);
+
+  /* Incoming bubble */
+  --tg-bubble-in: #1e2c3a;
+  --tg-bubble-in-text: #ffffff;
+  --tg-bubble-in-meta: rgba(255, 255, 255, 0.4);
+
+  /* Text */
+  --tg-text-primary: #e8e8e8;
+  --tg-text-secondary: #708499;
+  --tg-text-muted: #4a6278;
+  --tg-typing: #2ca5e0;
+
+  /* Badge */
+  --tg-badge: #2ca5e0;
+  --tg-badge-muted: #4a6278;
+
+  /* Border */
+  --tg-border: rgba(255, 255, 255, 0.06);
+
+  /* Topbar/Header */
+  --tg-header-bg: #17212b;
+
+  /* Divider */
+  --tg-divider: rgba(255, 255, 255, 0.05);
+
+  /* Context menu */
+  --tg-ctx-bg: #232e3c;
+  --tg-ctx-hover: #2b3a4a;
+
+  /* Empty state */
+  --tg-empty-icon: #2ca5e030;
+
+  /* Scrollbar */
+  --tg-scroll: rgba(255, 255, 255, 0.07);
+
+  /* shadcn compat */
+  --background: 210 20% 10%;
+  --foreground: 210 10% 91%;
+  --card: 210 18% 13%;
+  --card-foreground: 210 10% 91%;
+  --popover: 210 18% 13%;
+  --popover-foreground: 210 10% 91%;
+  --primary: 205 72% 53%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 18% 17%;
+  --secondary-foreground: 210 10% 91%;
+  --muted: 210 18% 17%;
+  --muted-foreground: 210 12% 55%;
+  --accent: 205 72% 53%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 210 15% 18%;
+  --input: 210 15% 18%;
+  --ring: 205 72% 53%;
+  --radius: 0.75rem;
+  --sidebar-background: 210 20% 10%;
+  --sidebar-foreground: 210 10% 91%;
+  --sidebar-primary: 205 72% 53%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 210 18% 17%;
+  --sidebar-accent-foreground: 210 10% 91%;
+  --sidebar-border: 210 15% 18%;
+  --sidebar-ring: 205 72% 53%;
 }
 
+/* ═══════════════════════════════
+   RESET & BASE
+═══════════════════════════════ */
 @layer base {
   * {
     @apply border-border;
@@ -59,61 +102,428 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Golos Text", sans-serif;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
+    height: 3px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--border-subtle);
-    border-radius: 2px;
+    background: var(--tg-scroll);
+    border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
+    background: rgba(255, 255, 255, 0.13);
   }
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
+/* ═══════════════════════════════
+   TELEGRAM ROOT
+═══════════════════════════════ */
+.tg-root {
+  background: var(--tg-chat-bg);
+}
+
+/* ─── SIDEBAR ─── */
+.tg-sidebar {
+  background: var(--tg-sidebar);
+  border-right: 1px solid var(--tg-border);
+}
+
+/* ─── TOP BAR ─── */
+.tg-topbar {
+  height: 56px;
+  background: var(--tg-header-bg);
+  border-bottom: 1px solid var(--tg-border);
+}
+
+.tg-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--tg-text-primary);
+  letter-spacing: 0.01em;
+}
+
+.tg-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tg-text-secondary);
+  transition:
+    background 0.15s,
+    color 0.15s;
+  flex-shrink: 0;
+}
+.tg-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--tg-text-primary);
+}
+
+/* ─── SEARCH ─── */
+.tg-search-wrap {
+  background: var(--tg-elevated);
+  border-radius: 20px;
+  padding: 6px 14px;
+}
+.tg-search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--tg-text-primary);
+}
+.tg-search-input::placeholder {
+  color: var(--tg-text-muted);
+}
+
+/* ─── TABS / FOLDERS ─── */
+.tg-tabs {
+  padding: 4px 8px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 2px;
+}
+.tg-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tg-tab {
+  padding: 5px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tg-text-secondary);
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.tg-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--tg-text-primary);
+}
+.tg-tab-active {
+  background: var(--tg-active) !important;
+  color: #fff !important;
+}
+
+/* ─── CHAT LIST ─── */
+.tg-chat-list {
+  overflow-y: auto;
+}
+
+.tg-chat-row {
+  height: 72px;
+  transition: background 0.1s;
+  cursor: pointer;
+}
+.tg-chat-row:hover {
+  background: var(--tg-hover);
+}
+.tg-chat-row-active {
+  background: var(--tg-active) !important;
+}
+
+.tg-chat-row-name {
+  color: var(--tg-text-primary);
+}
+.tg-chat-row-last {
+  color: var(--tg-text-secondary);
+}
+.tg-chat-row-time {
+  color: var(--tg-text-muted);
+}
+
+.tg-badge {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--tg-badge);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tg-badge-muted {
+  background: var(--tg-badge-muted) !important;
+}
+
+.tg-pin-icon {
+  color: var(--tg-text-muted);
+}
+.tg-muted-icon {
+  color: var(--tg-text-muted);
+}
+
+.tg-divider {
+  height: 1px;
+  background: var(--tg-divider);
+  margin: 2px 0;
+}
+
+/* ─── CHAT HEADER ─── */
+.tg-chat-header {
+  height: 56px;
+  background: var(--tg-header-bg);
+  border-bottom: 1px solid var(--tg-border);
+  flex-shrink: 0;
+}
+
+.tg-chat-name {
+  color: var(--tg-text-primary);
+}
+.tg-chat-status {
+  color: var(--tg-text-secondary);
+}
+.tg-typing-text {
+  color: var(--tg-typing);
+}
+
+/* ─── CHAT BACKGROUND ─── */
+.tg-chat-bg {
+  background-color: var(--tg-chat-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='10' cy='10' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='30' cy='10' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='50' cy='10' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='10' cy='30' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='50' cy='30' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='10' cy='50' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='30' cy='50' r='1.5' fill='%23ffffff08'/%3E%3Ccircle cx='50' cy='50' r='1.5' fill='%23ffffff08'/%3E%3C/svg%3E");
+}
+
+/* ─── MESSAGES AREA ─── */
+.tg-messages-area {
+  padding-bottom: 4px;
+}
+
+/* ─── DATE BADGE ─── */
+.tg-date-badge {
+  background: rgba(14, 22, 33, 0.7);
+  color: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+  font-size: 12px;
+}
+
+/* ─── BUBBLES ─── */
+.tg-bubble {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: 18px;
+  word-break: break-word;
+}
+
+/* Outgoing */
+.tg-bubble-out {
+  background: var(--tg-bubble-out);
+  color: var(--tg-bubble-out-text);
+  border-bottom-right-radius: 18px;
+}
+.tg-bubble-last-out {
+  border-bottom-right-radius: 4px;
+}
+.tg-bubble-first-out {
+  border-top-right-radius: 18px;
+}
+
+/* Incoming */
+.tg-bubble-in {
+  background: var(--tg-bubble-in);
+  color: var(--tg-bubble-in-text);
+  border-bottom-left-radius: 18px;
+}
+.tg-bubble-last-in {
+  border-bottom-left-radius: 4px;
+}
+.tg-bubble-first-in {
+  border-top-left-radius: 18px;
+}
+
+.tg-bubble-text {
+  display: inline;
+}
+
+.tg-bubble-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  vertical-align: bottom;
+}
+
+.tg-bubble-time {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.tg-bubble-out .tg-bubble-time {
+  color: var(--tg-bubble-out-meta);
+}
+.tg-bubble-in .tg-bubble-time {
+  color: var(--tg-bubble-in-meta);
+}
+
+.tg-bubble-tick {
+  display: flex;
+  align-items: center;
+}
+.tg-bubble-out .tg-bubble-tick {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ─── TYPING ─── */
+.tg-typing-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tg-text-secondary);
+  animation: tg-pulse 1.4s ease-in-out infinite;
+}
+
+/* ─── INPUT ─── */
+.tg-input-area {
+  background: var(--tg-header-bg);
+  border-top: 1px solid var(--tg-border);
+  flex-shrink: 0;
+}
+
+.tg-input-wrap {
+  background: var(--tg-input-bg);
+  border-radius: 24px;
+  min-height: 44px;
+  align-items: center;
+}
+
+.tg-textarea {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--tg-text-primary);
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 2px 0;
+}
+.tg-textarea::placeholder {
+  color: var(--tg-text-muted);
+}
+
+.tg-send-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tg-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+  box-shadow: 0 2px 12px rgba(44, 165, 224, 0.35);
+}
+.tg-send-btn:hover {
+  background: var(--tg-accent-2);
+  transform: scale(1.05);
+}
+.tg-send-btn:active {
+  transform: scale(0.95);
+}
+
+/* ─── EMPTY STATE ─── */
+.tg-empty-state {
+  background: var(--tg-chat-bg);
+}
+.tg-empty-icon {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: var(--tg-empty-icon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tg-accent);
+}
+.tg-empty-title {
+  color: var(--tg-text-primary);
+}
+.tg-empty-sub {
+  color: var(--tg-text-secondary);
+}
+
+/* ─── CONTEXT MENU ─── */
+.tg-context-menu {
+  position: fixed;
+  z-index: 1000;
+  background: var(--tg-ctx-bg);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 180px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  animation: tg-ctx-pop 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.tg-ctx-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: var(--tg-text-primary);
+  transition: background 0.1s;
+  text-align: left;
+}
+.tg-ctx-item:hover {
+  background: var(--tg-ctx-hover);
+}
+.tg-ctx-danger {
+  color: #e05555;
+}
+.tg-ctx-danger:hover {
+  background: rgba(224, 85, 85, 0.1);
+}
+
+.tg-ctx-divider {
+  height: 1px;
+  background: var(--tg-border);
+  margin: 4px 0;
+}
+
+/* ═══════════════════════════════
+   ANIMATIONS
+═══════════════════════════════ */
+@keyframes tg-pulse {
+  0%,
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.75);
   }
 }
 
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.tg-typing-dot:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.tg-typing-dot:nth-child(3) {
+  animation-delay: 0.36s;
 }
 
-@keyframes slide-in-right {
+@keyframes tg-msg {
   from {
     opacity: 0;
-    transform: translateX(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes msg-pop {
-  from {
-    opacity: 0;
-    transform: scale(0.92) translateY(6px);
+    transform: scale(0.92) translateY(4px);
   }
   to {
     opacity: 1;
@@ -121,35 +531,37 @@
   }
 }
 
-@keyframes pulse-dot {
-  0%,
-  100% {
+.animate-tg-msg {
+  animation: tg-msg 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes tg-ctx-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes tg-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
     opacity: 1;
   }
-  50% {
-    opacity: 0.3;
+}
+
+.animate-tg-fade {
+  animation: tg-fade-in 0.2s ease forwards;
+}
+
+/* ─── LEGACY (shadcn accordion) ─── */
+@layer base {
+  * {
+    @apply border-border;
   }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.35s ease forwards;
-}
-.animate-slide-left {
-  animation: slide-in-left 0.3s ease forwards;
-}
-.animate-slide-right {
-  animation: slide-in-right 0.3s ease forwards;
-}
-.animate-msg-pop {
-  animation: msg-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.typing-dot {
-  animation: pulse-dot 1.2s ease-in-out infinite;
-}
-.typing-dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.typing-dot:nth-child(3) {
-  animation-delay: 0.4s;
 }
