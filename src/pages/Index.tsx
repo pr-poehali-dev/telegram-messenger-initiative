@@ -344,7 +344,7 @@ export default function Index() {
               <button className="tg-icon-btn">
                 <Icon name="Menu" size={20} />
               </button>
-              <span className="tg-title flex-1">Telegram</span>
+              <span className="tg-title flex-1">Тингер</span>
               <button
                 className="tg-icon-btn"
                 onClick={() => setShowSearch(true)}
@@ -547,7 +547,7 @@ export default function Index() {
           <div className="tg-empty-icon mb-6">
             <Icon name="MessageCircle" size={80} />
           </div>
-          <h2 className="tg-empty-title text-2xl font-light mb-2">Telegram</h2>
+          <h2 className="tg-empty-title text-2xl font-light mb-2">Тингер</h2>
           <p className="tg-empty-sub text-sm text-center max-w-xs">
             Выберите, кому хотели бы написать
           </p>
