@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Verify OTP - missing fields",
+    "method": "POST",
+    "path": "/",
+    "body": { "phone": "+79001234567" },
+    "expectedStatus": 400
+  },
+  {
+    "name": "Verify OTP - wrong code",
+    "method": "POST",
+    "path": "/",
+    "body": { "phone": "+79001234567", "code": "000000" },
+    "expectedStatus": 401
+  }
+]

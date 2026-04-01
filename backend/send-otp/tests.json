@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Send OTP - valid phone",
+    "method": "POST",
+    "path": "/",
+    "body": { "phone": "+79001234567" },
+    "expectedStatus": 200
+  },
+  {
+    "name": "Send OTP - invalid phone",
+    "method": "POST",
+    "path": "/",
+    "body": { "phone": "abc" },
+    "expectedStatus": 400
+  }
+]

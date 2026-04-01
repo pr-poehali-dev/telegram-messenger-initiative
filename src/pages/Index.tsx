@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Message {
   id: number;
@@ -193,6 +194,7 @@ function VerifiedBadge() {
 const TABS = ["Все", "Личные", "Группы", "Каналы"];
 
 export default function Index() {
+  const { user, logout } = useAuth();
   const [chats, setChats] = useState<Chat[]>(INITIAL_CHATS);
   const [activeChatId, setActiveChatId] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
@@ -341,8 +343,8 @@ export default function Index() {
             </>
           ) : (
             <>
-              <button className="tg-icon-btn">
-                <Icon name="Menu" size={20} />
+              <button className="tg-icon-btn" title={`Выйти (${user?.phone})`} onClick={logout}>
+                <Icon name="LogOut" size={20} />
               </button>
               <span className="tg-title flex-1">Тингер</span>
               <button
