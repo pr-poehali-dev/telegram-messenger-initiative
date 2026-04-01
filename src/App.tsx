@@ -46,6 +46,26 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+/** Route for adding a new account (user already logged in) */
+function AddAccountRoute() {
+  const { user, isLoading, canAddAccount } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#17212b]">
+        <div className="w-8 h-8 border-2 border-[#2ca5e0] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  // Not logged in → regular login
+  if (!user) return <Navigate to="/login" replace />;
+  // Reached account limit
+  if (!canAddAccount) return <Navigate to="/" replace />;
+
+  return <Login isAddingAccount />;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -62,6 +82,7 @@ const App = () => (
                 </PublicRoute>
               }
             />
+            <Route path="/add-account" element={<AddAccountRoute />} />
             <Route
               path="/"
               element={

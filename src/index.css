@@ -565,3 +565,246 @@
     @apply border-border;
   }
 }
+
+/* ═══════════════════════════════
+   ACCOUNT BUTTON (topbar)
+═══════════════════════════════ */
+.tg-account-btn {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 50%;
+  transition: opacity 0.15s;
+}
+.tg-account-btn:hover {
+  opacity: 0.85;
+}
+
+.tg-account-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.02em;
+  select-none: unset;
+  user-select: none;
+}
+
+.tg-account-count {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: var(--tg-accent);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--tg-header-bg);
+  line-height: 1;
+}
+
+/* ═══════════════════════════════
+   ACCOUNT SWITCHER PANEL
+═══════════════════════════════ */
+.account-switcher-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.45);
+  animation: tg-fade-in 0.15s ease forwards;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.account-switcher-panel {
+  margin: 56px 0 0 0;
+  width: 300px;
+  background: var(--tg-ctx-bg);
+  border-radius: 0 12px 12px 0;
+  box-shadow: 6px 0 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-left: none;
+  animation: account-switcher-slide 0.2s cubic-bezier(0.34, 1.4, 0.64, 1)
+    forwards;
+  overflow: hidden;
+}
+
+@keyframes account-switcher-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.account-switcher-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--tg-border);
+}
+
+.account-switcher-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--tg-text-primary);
+}
+
+.account-switcher-list {
+  padding: 6px 0;
+}
+
+.account-switcher-item {
+  display: flex;
+  align-items: center;
+  padding: 2px 8px 2px 12px;
+  transition: background 0.1s;
+}
+.account-switcher-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.account-switcher-item-active {
+  background: rgba(44, 165, 224, 0.08);
+}
+.account-switcher-item-active:hover {
+  background: rgba(44, 165, 224, 0.12);
+}
+
+.account-switcher-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  text-align: left;
+  min-width: 0;
+}
+
+.account-switcher-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.account-switcher-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.account-switcher-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tg-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-switcher-phone {
+  font-size: 12px;
+  color: var(--tg-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-switcher-check {
+  color: var(--tg-accent);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.account-switcher-remove {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tg-text-muted);
+  transition:
+    background 0.1s,
+    color 0.1s;
+  flex-shrink: 0;
+}
+.account-switcher-remove:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--tg-text-secondary);
+}
+.account-switcher-remove-confirm {
+  color: #e07555;
+}
+.account-switcher-remove-confirm:hover {
+  background: rgba(224, 85, 85, 0.12);
+  color: #e05555;
+}
+
+.account-switcher-add {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--tg-border);
+  color: var(--tg-accent);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.1s;
+}
+.account-switcher-add:hover {
+  background: rgba(44, 165, 224, 0.07);
+}
+
+.account-switcher-add-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px dashed var(--tg-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.account-switcher-add-count {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--tg-text-muted);
+  font-weight: 400;
+}
+
+.account-switcher-limit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--tg-border);
+  color: var(--tg-text-muted);
+  font-size: 12px;
+}

@@ -3,12 +3,19 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 type Step = "phone" | "otp";
 
-export default function Login() {
-  const { sendOtp, verifyOtp } = useAuth();
+interface LoginProps {
+  /** When true, user is already logged in and adding a second/third/fourth account */
+  isAddingAccount?: boolean;
+}
+
+export default function Login({ isAddingAccount = false }: LoginProps) {
+  const { sendOtp, verifyOtp, accounts } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const [step, setStep] = useState<Step>("phone");
   const [phone, setPhone] = useState("");
@@ -60,6 +67,14 @@ export default function Login() {
       toast({ title: "Введите корректный номер телефона", variant: "destructive" });
       return;
     }
+
+    // Check if this phone is already added
+    const alreadyAdded = accounts.some((a) => a.user.phone === "+" + digits);
+    if (alreadyAdded) {
+      toast({ title: "Этот аккаунт уже добавлен", variant: "destructive" });
+      return;
+    }
+
     setLoading(true);
     try {
       const result = await sendOtp("+" + digits);
@@ -129,6 +144,8 @@ export default function Login() {
     setLoading(true);
     try {
       await verifyOtp("+" + phoneDigits, code);
+      // After adding account — go back to messenger
+      navigate("/", { replace: true });
     } catch (e: unknown) {
       toast({
         title: "Неверный код",
@@ -152,7 +169,9 @@ export default function Login() {
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.93c-.12.56-.48.7-.97.43l-2.69-1.98-1.3 1.25c-.14.14-.27.27-.55.27l.19-2.73 4.99-4.5c.22-.19-.05-.3-.34-.11L7.16 14.26l-2.63-.82c-.57-.18-.58-.57.12-.84l10.27-3.96c.48-.17.9.12.72.16z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-semibold text-white">Telegram</h1>
+          <h1 className="text-2xl font-semibold text-white">
+            {isAddingAccount ? "Добавить аккаунт" : "Telegram"}
+          </h1>
           <p className="text-[#8899a6] text-sm mt-1">
             {step === "phone" ? "Введите ваш номер телефона" : "Введите код из СМС"}
           </p>
@@ -163,7 +182,9 @@ export default function Login() {
           {step === "phone" ? (
             <>
               <p className="text-[#8899a6] text-sm text-center mb-4">
-                Укажите ваш номер телефона и мы отправим вам код подтверждения
+                {isAddingAccount
+                  ? "Укажите номер телефона нового аккаунта"
+                  : "Укажите ваш номер телефона и мы отправим вам код подтверждения"}
               </p>
               <Input
                 type="tel"
@@ -182,6 +203,15 @@ export default function Login() {
               >
                 {loading ? "Отправка..." : "Получить код"}
               </Button>
+              {isAddingAccount && (
+                <Button
+                  variant="ghost"
+                  onClick={() => navigate("/", { replace: true })}
+                  className="w-full mt-2 h-10 text-[#8899a6] hover:text-white"
+                >
+                  Отмена
+                </Button>
+              )}
             </>
           ) : (
             <>
@@ -217,7 +247,7 @@ export default function Login() {
                 disabled={loading || otp.join("").length !== 6}
                 className="w-full h-12 bg-[#2ca5e0] hover:bg-[#2895cc] text-white font-medium rounded-xl transition-colors"
               >
-                {loading ? "Проверка..." : "Войти"}
+                {loading ? "Проверка..." : isAddingAccount ? "Добавить аккаунт" : "Войти"}
               </Button>
 
               {/* Resend */}
@@ -228,10 +258,7 @@ export default function Login() {
                   </p>
                 ) : (
                   <button
-                    onClick={() => {
-                      setStep("phone");
-                      setOtp(["", "", "", "", "", ""]);
-                    }}
+                    onClick={() => { setStep("phone"); setOtp(["", "", "", "", "", ""]); }}
                     className="text-[#2ca5e0] text-sm hover:underline"
                   >
                     Изменить номер или отправить снова

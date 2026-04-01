@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { useAuth } from "@/contexts/AuthContext";
+import AccountSwitcher from "@/components/AccountSwitcher";
 
 interface Message {
   id: number;
@@ -194,7 +196,8 @@ function VerifiedBadge() {
 const TABS = ["Все", "Личные", "Группы", "Каналы"];
 
 export default function Index() {
-  const { user, logout } = useAuth();
+  const { user, logout, accounts } = useAuth();
+  const navigate = useNavigate();
   const [chats, setChats] = useState<Chat[]>(INITIAL_CHATS);
   const [activeChatId, setActiveChatId] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
@@ -202,6 +205,7 @@ export default function Index() {
   const [isTyping, setIsTyping] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
+  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; chatId: number } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -343,8 +347,23 @@ export default function Index() {
             </>
           ) : (
             <>
-              <button className="tg-icon-btn" title={`Выйти (${user?.phone})`} onClick={logout}>
-                <Icon name="LogOut" size={20} />
+              {/* Account avatar button */}
+              <button
+                className="tg-account-btn relative"
+                onClick={() => setShowAccountSwitcher(true)}
+                title={user?.phone}
+              >
+                <div
+                  className="tg-account-avatar"
+                  style={{ background: "linear-gradient(135deg, #2ca5e0, #1a7bbf)" }}
+                >
+                  {user?.name
+                    ? user.name.trim().split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()
+                    : user?.phone?.replace(/\D/g, "").slice(-2)}
+                </div>
+                {accounts.length > 1 && (
+                  <span className="tg-account-count">{accounts.length}</span>
+                )}
               </button>
               <span className="tg-title flex-1">Тингер</span>
               <button
@@ -554,6 +573,14 @@ export default function Index() {
             Выберите, кому хотели бы написать
           </p>
         </div>
+      )}
+
+      {/* Account Switcher */}
+      {showAccountSwitcher && (
+        <AccountSwitcher
+          onAddAccount={() => navigate("/add-account")}
+          onClose={() => setShowAccountSwitcher(false)}
+        />
       )}
 
       {/* Context Menu */}
